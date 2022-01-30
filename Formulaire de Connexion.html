@@ -1,0 +1,147 @@
+<!DOCTYPE html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Formulaire de connexion</title>
+    <style>
+/*Couleur de la page web*/
+        body   
+            {
+                background-color:rgb(2, 2, 0); 
+            }
+        #container{
+                width:400px;
+                margin:auto;;
+                margin-top:10%;
+            }
+/* Bordered form */
+        form 
+            {
+                width:75%;
+                padding:50px;
+                border: 1px solid #f1f1f1;
+                background: #fff;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+            }
+        #container h1
+            {
+                width: 38%;
+                margin: 0 auto;
+                padding-bottom: 10px;
+            }
+
+/* Full-width inputs */
+        input[type=text],   
+        input[type=password] 
+            {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+
+/* Set a style for all buttons */
+        input[type=submit] 
+            {
+                background-color:#1c87c9 ;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+            }
+        input[type=submit]:hover 
+            {
+                background-color: white;
+                color:#1c87c9 ;
+                border: 1px solid #1c87c9 ;
+            } 
+            
+/*couleur et style du boutton connexion*/
+.button 
+                {
+                    background-color: #1c87c9;
+                    -webkit-border-radius: 60px;
+                    border-radius: 60px;
+                    border: none;
+                    color: #eeeeee;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-family: sans-serif; 
+                    font-size: 20px;
+                    padding: 10px 10px;
+                    text-align: center;
+                    text-decoration: none;
+                }
+                    @keyframes glowing {
+                    0% { background-color: #1c87c9; box-shadow: 0 0 5px#dfe8ee ; }
+                    50% { background-color:#1c87c9 ; box-shadow: 0 0 20px#dfe8ee ; }
+                    100% { background-color:#1c87c9; box-shadow: 0 0 5px #dfe8ee; }
+                }
+        .button 
+                {
+                    animation: glowing 1300ms infinite;
+                }
+    </style>
+<head>
+    <!--Alerte de connexion JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        var nom="Utilisateur";
+        var prenom="Nouvel";
+        alert("Bonjour "+prenom+" "+nom+", cliquez sur ok pour continuer!");
+      </script>
+      <script>
+        setInterval('load_message()', 500);
+        function load_message() {
+              $('.temps').load('load_temps.php');
+        }
+</script>
+<!--Espace-->
+    <br>
+    <br>
+    <br>
+<div class="temps" ></div>
+<meta charset="utf-8">
+<!-- importer le fichier de style -->
+        <link rel="stylesheet" href="style.css" media="screen" type="text/css" />
+</head>
+<body>
+<div id="container">
+<!-- zone de connexion -->
+            
+<form action="verification.php" method="POST">
+<h1>Inscription</h1>
+                
+<label><b>Nom</b></label>
+<input type="text" placeholder="Entrer votre nom" name="name" required>
+
+<label><b>Prénom</b></label>
+<input type="text" placeholder="Entrer votre prénom" name="prénom" required>
+
+<label><b>Adresse email</b></label>
+<input type="text" placeholder="Entrer votre adresse email" name="adresse email" required>
+
+<input type="submit" id='submit' value='ENVOYER'>
+<a href="mailto:szmulikowski.vincent.1971@hotmail.com">Me Contacter</a>
+        <!--<?php
+        if(isset($_GET['erreur'])){
+        $err = $_GET['erreur'];
+        if($err==1 || $err==2)
+        echo "<p style='color:red'>Utilisateur ou mot de passe incorrect</p>";
+        }
+        ?>-->
+            </form>
+        </div>
+        <br>
+<!--Insertion du boutton "coninuer sans inscription"-->       
+<div style="text-align: center">
+    <a href="file:///C:/Users/szmul/OneDrive/Bureau/projet%20WEB/Mon%20Application/Politique%20Confidentialité.html" class="button large hpbottom">Cliquez ici pour continuer sans inscription</a>
+</div>               
+       
+    </body>
+</html>  

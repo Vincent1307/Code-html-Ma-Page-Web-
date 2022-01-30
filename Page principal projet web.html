@@ -1,0 +1,385 @@
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                                                                                                <!--CSS de la page web-->
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<style>
+    body{
+        
+        font-family:arial;
+    }
+    /* Layout */
+    html {display: flex; flex-direction: column;} /* IE fix */
+    body {
+      display: flex; /* crée un contexte flex pour ses enfants */
+      flex-direction: column; /* affichage vertical */
+      min-height: 100vh; /* toute la hauteur du viewport (compatible IE9+) */
+    }
+    .wrapper {
+      display: block; /* IE fix */
+      flex: 1 1 auto; /* occupe la hauteur restante */
+      display: flex; /* crée un contexte flex pour ses enfants */
+      flex-direction: row; /* affichage horizontal */
+    }
+    nav {
+      width: 15em; order: -1;
+    }
+    .content {
+      display: block; /* IE fix */
+      flex: 1; /* occupe la largeur restante */
+    }
+    p{margin:17px;
+      padding: 15px; 
+      color:#fff;
+    }
+    
+    
+    /* Responsive */
+    
+    @media (max-width: 640px) {
+        body {
+      min-height: 0; 
+    }
+        .wrapper {
+        flex-direction: column;
+      }
+        .content {
+            flex-basis: auto;
+            color:#616161;
+        }
+      nav {
+        width: auto;
+        order: -1;
+      }
+    }
+    
+    /* Decoration */
+    
+    body {
+        margin: 0;
+        background: #fff;
+        font-family: "Century Gothic", helvetica, arial, sans-serif;
+        font-size: 1.1em;
+    }
+    header, nav, section, footer {
+        padding: 10px;
+        margin: 0;
+        border: 2px solid #fff;
+        border-radius: 10px;
+        color: #fff;
+    }
+    header {
+        background: rgb(1, 15, 29);/*Couleur du haut de page*/
+      text-align: center;
+    }
+    nav {
+        background: rgb(12, 12, 12);
+    }
+    nav a {
+      display: block;
+      padding: .5em 1em;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.3);
+    }
+    section {
+        background: rgb(8, 8, 8);/*Couleur Centrale*/
+    }
+    
+    
+    
+    footer {
+        background: rgb(1, 15, 29);
+      text-align: center;
+    }
+    </style>
+    <style>
+        
+    /*couleur et taille de boutton*/
+    /*body{background:#0695f5; height:80%; padding-top:40px;}
+    #wrap{margin:20px 20px 50px;}*/
+    #countdown>span{ display:inline-block; text-align:right; width:1.2em; font-weight:bolder; font-size:3em; line-height:1em; color:hsl(214, 86%, 42%); }
+    #credit{margin:20px 0 0;}
+    </style>
+<!--Style et couleur des bulles de commentaire barre de recherche-->
+<style>
+    .test+.tooltip>.tooltip-inner 
+     {
+         background-color: rgb(11, 241, 11);
+         color: #080808;
+         border: 1px solid rgb(11, 241, 11);
+         padding: 15px;
+         /*Epaisseur de bule de commentaire "MENU"*/
+         font-size: 15px;
+         /*Epaisseur de bule de commentaire "MENU"*/
+     }
+
+     /* Tooltip on top */
+     
+     .test+.tooltip.top>.tooltip-arrow {
+         border-top: 5px solid rgb(11, 241, 11);
+     }
+     /* Tooltip on bottom */
+     
+     .test+.tooltip.bottom>.tooltip-arrow {
+         border-bottom: 10px solid blue;
+     }
+     /* Tooltip on left */
+     
+     .test+.tooltip.left>.tooltip-arrow {
+         border-left: 5px solid red;
+     }
+     /* Tooltip on right */
+     
+     .test+.tooltip.right>.tooltip-arrow {
+         border-right: 5px solid black;
+     }
+     
+     li:before {
+         content: counter(repas);
+         /* on affiche le compteur */
+         padding: 0 20px 6px;
+         margin-right: 8px;
+         vertical-align: top;
+         background: rgb(20, 10, 10);
+         -moz-border-radius: 60px;
+         border-radius: 60px;
+         font-weight: bold;
+         font-size: 0.8em;
+         color: white;
+     }
+</style>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                                                                                            <!--Alerte de page!-->
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<script>
+    var nom = "Utilisateur";
+    var prenom = "Nouvel";
+        alert("Félicitation " + prenom + " " + nom + ",accés accepté!");
+</script>
+<script>
+        setInterval('load_message()', 500);
+
+    function load_message() {
+        $('.temps').load('load_temps.php');
+            }
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+            <script>
+            countdownManager = {
+            // Configuration
+                targetTime: new Date().getTime() + (60*60*24*5 + 60*60*6 + 60*25 + 37)*1000, // Date cible du compte à rebours (00:00:00)
+                displayElement: { // Elements HTML où sont affichés les informations
+                    day:  null,/*Jour*/
+                    hour: null,/*Heure*/
+                    min:  null,
+                    sec:  null
+                },
+                // Initialisation du compte à rebours (à appeller 1 fois au chargement de la page)
+                init: function(){
+                    // Récupération des références vers les éléments pour l'affichage
+                    // La référence n'est récupérée qu'une seule fois à l'initialisation pour optimiser les performances
+                    this.displayElement.day  = jQuery('#countdown_day');
+                    this.displayElement.hour = jQuery('#countdown_hour');
+                    this.displayElement.min  = jQuery('#countdown_min');
+                    this.displayElement.sec  = jQuery('#countdown_sec');
+                    // Lancement du compte à rebours
+                    this.tick(); // Premier tick tout de suite
+                    window.setInterval("countdownManager.tick();", 1000); // Ticks suivants, répété toutes les secondes (1000 ms)
+                },
+                // Met à jour le compte à rebours (tic d'horloge)
+                tick: function(){
+                    // Instant présent
+                    var timeNow  = new Date();
+                    // On s'assure que le temps restant ne soit jamais negatif (ce qui est le cas dans le futur de targetTime)
+                    if( timeNow > this.targetTime ){
+                        timeNow = this.targetTime;
+                    }
+                     // Calcul du temps restant
+                    var diff = this.dateDiff(timeNow, this.targetTime);
+                    
+                    this.displayElement.day.text(  diff.day  );
+                    this.displayElement.hour.text( diff.hour );
+                    this.displayElement.min.text(  diff.min  );
+                    this.displayElement.sec.text(  diff.sec  );
+                },
+                // Calcul la différence entre 2 dates, en jour/heure/minute/seconde
+                dateDiff: function(date1, date2){
+                    var diff = {}                           // Initialisation du retour
+                    var tmp = date2 - date1;
+            
+                    tmp = Math.floor(tmp/1000);             // Nombre de secondes entre les 2 dates
+                    diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+                    tmp = Math.floor((tmp-diff.sec)/60);    // Nombre de minutes (partie entière)
+                    diff.min = tmp % 60;                    // Extraction du nombre de minutes
+                    tmp = Math.floor((tmp-diff.min)/60);    // Nombre d'heures (entières)
+                    diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+                    tmp = Math.floor((tmp-diff.hour)/24);   // Nombre de jours restants
+                    diff.day = tmp;
+            
+                    return diff;
+                }
+            };
+            
+            jQuery(function($){
+                // Lancement du compte à rebours au chargement de la page
+                countdownManager.init();
+            });
+            </script>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                                                                                        <!--Structure du code la page web-->
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+<!DOCTYPE html lang="fr">
+    <meta charset="UTF-8">
+    <title>Ma page web</title>
+<header>
+    <h1 font-size="25" 10px;>Menu</h1>
+    <ul class="list-inline">
+        <!--Menu en haut de la page avec Gmail-Hotmail-Twiter-->        
+        <li><a class="test" href="https://accounts.google.com/ServiceLogin/signinchooser?service=mail&passive=1209600&osid=1&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+            data-toggle="tooltip" data-placement="bottom" title="Cliquez">Gmail</a></li>
+    <li><a class="test" href="https://outlook.live.com/owa/" data-toggle="tooltip" data-placement="bottom" title="Cliquez">Hotmail</a></li>
+    <li><a class="test" href="https://twitter.com/" data-toggle="tooltip" data-placement="right" title="Cliquez!">Twiter</a></li><ul class="navbar navbar-expand-md navbar-dark bg-dark sticky-top"></ul>
+        <!--Barre de recherche-->
+        <form class="form-inline">
+            <input href="https://www.googel.com" class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-primary" type="submit">Envoyer</button>
+        </form>
+            <!--Insertion du "Logo"-->
+            <p align="center"><img src="logo-javascript-png--784.png" width="9%"></img></p>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        $('[data-toggle="tooltip"]').tooltip();
+                    });
+                </script>
+        <!--barre de progression 100%-->
+        <div class="container">
+            <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="width:100%">100%
+        </div>
+</header>
+<!--Structure des "li"-->
+    <div class="wrapper">
+        <nav id="navigation" role="navigation">
+            <p align="center"><img src="image_moi.jpg" width="100%"></img></p>
+<!--<br>
+<br>-->
+                <!--<p align=center></p>-->
+                <a href="file:///C:/Users/szmul/OneDrive/Bureau/CV/Curriculum%20Vitae%20D%C3%A9veloppeur%20Frond-en.pdf" data-toggle="tooltip"data-placement="bottom" background-color="green" title="Cliquez" >Curriculum Vitae</a>
+                <a href="https://app.powerbi.com/groups/me/reports/c3ae08de-d759-437b-809f-2fe6b0eebb76/ReportSection4cafa3796950823a1b5c"data-toggle="tooltip" data-placement="bottom" background-color="green" title="Cliquez" >ProjetBI</a>
+                <a href=""data-toggle="tooltip" data-placement="bottom" background-color="green" title="Cliquez">Projet Web</a>
+                <a href=""data-toggle="tooltip" data-placement="bottom" background-color="green" title="Cliquez">Projet Data</a>
+                <a href=""data-toggle="tooltip" data-placement="bottom" background-color="green" title="Cliquez">Modélisation BI</a>
+                <a href="https://github.com/Vincent1307"data-toggle="tooltip"data-placement="bottom" background-color="green" title="Cliquez">Githup</a>
+                <a href="https://www.linkedin.com/feed/?trk=seo-authwall-base_signin-form_submit"data-toggle="tooltip"data-placement="bottom" background-color="green" title="Cliquez">linkedin</a>
+                <br>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+                                                                                        <!--Insertion du "LIKE"-->
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+<!--Like"facebook"-->
+<div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v12.0" nonce="PQYgAjzP"></script>
+<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button" data-action="like" data-size="large" data-share="false"></div> 
+     
+<a href="mailto:szmulikowski.vincent.1971@hotmail.com "data-toggle="tooltip" data-placement="bottom" background-color="green" title="Cliquez ici pour m'envoyer un message!" >Me Contacter</a>
+<br>
+<!--espace latéral-->
+&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;<progress></progress>
+</nav>
+ <!--Insertion de la video-->     
+<section class="content">
+        <br>
+        <br>
+        <br>
+        <br>
+    <video width="2110" height="320" controls>
+        <video><source align= "center" src=”http://techslides.com/demos/sample-videos/small.ogv” type=video/ogg> <source src="/build/videos/arcnet.io(7-sec).mp4" type=video/mp4></video>
+      </video>
+<style>
+/* Règle de base pour le lien */
+    a
+    {
+        color:#4c0ed8;
+    }
+    a:hover,a:focus
+    {
+        color:rgb(250, 246, 246);
+    }
+/* Position et couleur bulle */
+    a span
+    {
+        position:absolute;
+        margin-top:25px;
+        margin-left:-25px;
+        color:#fff;
+        background:rgba(7, 240, 46, 0.5);
+        padding:25px;
+        border-radius:3px;
+/* Faire disparaire infobulle par défaut */
+/* On determine l'origine de la rotation */
+        transform:scale(0)rotate(-180deg);
+/* Faire durer l'effet */
+        transition:all.25s;
+/* Effet sur la transparence */
+        opacity:0;
+    }
+/* Apparition de la bulle avec le scale à 1 */
+        a:hoverspan,a:focusspan{
+        transform:scale(1)rotate(0);
+/* Effet sur la transparence */
+        opacity:1;
+    }
+</style></head>
+<!--Construction du lien bulle info "Youtube"-->
+    <body>
+        <p><a href="https://www.youtube.com/watch?v=eV-kARtgxkM" data-toggle="tooltip" data-placement="bottom" background-color="green" title="Le secteur Developpement web"> Passez la souris sur ce lien !
+        <span>Pour voir les vidéos en plein écran, cliquez sur le logo YouTube ;)</span></a></p>
+    </body>
+                                                                    <!------------------------------------------------------------------->
+                                                                            <!--style de l'info sur le lien de la video "youtube" sur
+                                                                                            le secteur du déeloppement-->
+                                                                     <!------------------------------------------------------------------->
+                                                                                                    <style>
+                                                                                        .test+.tooltip.top>.tooltip-arrow {
+                                                                                    border-top: 5px solid rgb(11, 241, 11);
+                                                                                }
+                                                                                                    </style>
+                                                                    <!-------------------------------------------------------------------->
+                                                                                   
+</html>
+<!--Video<p align="center"><object width="500" height="250" data=""></object></p>-->
+     
+    
+    </section></div> <!-- /wrapper -->
+    
+    <footer>© 2022 All rights reserved | Design by Szmulikowski Vincent <!--espace pour bouger le button "vous êtes connecté"-->                                      
+        <div align="center"></div>
+        <!--Espace pour déplacer le boutton vert "vous êtes connecté"-->
+        
+                                                                    <!------------------------------------------------------------------------->
+                                                                                        <!--Parametres compteur de connexion-->
+                                                                    <!------------------------------------------------------------------------->
+                                                                                                <div id="wrap">
+                                                                                                <div id="countdown">
+                                                                                                <!--Espace-->
+                                                                                                &nbsp;&#160;&nbsp;&#160;
+                                                                                <P1><strong>Temps de connexion restant:</strong></P1>
+                                                                                    <!--<span id="countdown_day">5</span> jours
+                                                                                    <span id="countdown_hour">6</span> heures-->
+                                                                                    <span id="countdown_min">25</span> minutes
+                                                                                    <span id="countdown_sec">17</span> secondes
+                                                                                                </div>   
+                                                                    <!------------------------------------------------------------------------->
+        <!--Espace-->
+        &nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;
+        &nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160; &nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;
+        &nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;
+        &nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;
+        &nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;
+        &#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;&nbsp;&#160;
+    <button style="background-color:rgb(11, 243, 11); border-color: white; color: black; border-radius:15px; height:30px">Vous êtes connecté</button>&nbsp;&#160;&nbsp;&#160;<img src="https://img.icons8.com/fluency/48/000000/high-connection.png"/>
+    </footer></body></html>
+     
